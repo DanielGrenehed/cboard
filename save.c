@@ -29,7 +29,7 @@ Board LoadBoardFromFile(char *filename, int *success) {
 	Board b;
 	if (fread(header, sizeof(int), 3, file)) {
 		b = CreateBoard(header[0], header[1]);
-		printf("int1 %d int2 %d int3 %d\n", header[0], header[1], header[2]);
+		//printf("int1 %d int2 %d int3 %d\n", header[0], header[1], header[2]);
 		for (int i = 0; i < header[2]; i++) {
 			Resistor r;
 			fread(&r, sizeof(Resistor), 1, file);
