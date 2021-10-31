@@ -81,7 +81,7 @@ void QueueEnqueue(Queue *q, int value) {
 
 int QueueDequeue(Queue *q) {
 	if (QueueIsEmpty(q)) return -1;
-	printf("Dequeue %d at %p\n", q->start->value, q->start);
+	//printf("Dequeue %d at %p\n", q->start->value, q->start);
 	int result = q->start->value;
 	QueueNode *pop = q->start;
 	if (q->start->next != NULL) q->start = q->start->next;
