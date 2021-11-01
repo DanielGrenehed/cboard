@@ -31,11 +31,13 @@ Board LoadBoardFromFile(char *filename, int *success) {
 	
 	if (file > 0 && fread(header, sizeof(int), 3, file)) {
 		b = CreateBoard(header[0], header[1]);
+		
 		for (int i = 0; i < header[2]; i++) {
 			Resistor r;
 			fread(&r, sizeof(Resistor), 1, file);
 			ResistorListAddResistor(&b.resistors, r);
 		}
+		
 		*success = 1;
 	} else *success = 0;
 

@@ -11,40 +11,32 @@ void promptBoardSize(Board *board) {
 	printf("\n");
 }
 
-int main(int argc, char **argv) {
-	Board board = (Board){.width = 5, .height = 5};
-	/*
-	 *	initialize board depending on input arguments
-	 *
-	 *	// set size at startup
-	 *	// load from file
-	 *	// prompt user for size
-	 * */
+Board GenerateBoard(int argc, char **argv) {
+	Board board = CreateBoard(0, 0);
 	int success = 0;
 	if (argc == 2) {
 		success = sscanf(argv[1], "%d", &board.width);
-		if (success) {
-			board.height = board.width;
-		} else {
+		if (success) board.height = board.width;
+		else {
 			board = LoadBoardFromFile(argv[1], &success);
-			printf("Could not load %s !\n", argv[1]);
+			if (!success) printf("Could not load %s !\n", argv[1]);
 		}
 	} else if (argc == 3) {
 		success = sscanf(argv[1], "%d", &board.width);
-		if (!success) {
-			printf("Accepts only numbers when provided with 2 arguments\n");
-			return 1;
-		}
+		if (!success) printf("Accepts only numbers when provided with 2 arguments\n");
+		
 		success = sscanf(argv[2], "%d", &board.height);
-		if (!success) {
-			printf("Accepts only numbers when provided with 2 arguments\n");
-			return 1;
-		}
-	} else if (argc > 3) {
-		printf("Too many arguments provided, max 2 arguments!\n");
-	}
-	if (!success) promptBoardSize(&board);
+		if (!success) printf("Accepts only numbers when provided with 2 arguments\n");
+		
+	} else if (argc > 3) printf("Too many arguments provided, max 2 arguments!\n");
 	
+	if (!success) promptBoardSize(&board);
+	return board;
+}
+
+int main(int argc, char **argv) {
+	Board board = GenerateBoard(argc, argv);
+
 	if (board.width > 1 || board.height > 1) {
 		MenuShow(&board);
 	} else printf("Will not show boards of 1 or less dimentions!\n");
