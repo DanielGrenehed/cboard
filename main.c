@@ -26,8 +26,8 @@ int main(int argc, char **argv) {
 		if (success) {
 			board.height = board.width;
 		} else {
-			// check if file argv[1] exists 
 			board = LoadBoardFromFile(argv[1], &success);
+			printf("Could not load %s !\n", argv[1]);
 		}
 	} else if (argc == 3) {
 		success = sscanf(argv[1], "%d", &board.width);
@@ -44,9 +44,10 @@ int main(int argc, char **argv) {
 		printf("Too many arguments provided, max 2 arguments!\n");
 	}
 	if (!success) promptBoardSize(&board);
-
-
-	MenuShow(&board);
+	
+	if (board.width > 1 || board.height > 1) {
+		MenuShow(&board);
+	} else printf("Will not show boards of 1 or less dimentions!\n");
 	ClearBoard(&board);
 }
 

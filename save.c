@@ -7,6 +7,7 @@
  * */
 
 void writeResistors(FILE *file, ResistorNode *node) {
+	if (node == NULL) return;
 	if (node->next != NULL) writeResistors(file, node->next);
 	fwrite(&node->resistor, sizeof(Resistor), 1, file);
 }
@@ -26,10 +27,10 @@ int SaveBoardToFile(char *filename, Board *board) {
 Board LoadBoardFromFile(char *filename, int *success) {
 	FILE *file = fopen(filename, "rb");
 	int header[3];
-	Board b;
-	if (fread(header, sizeof(int), 3, file)) {
+	Board b = CreateBoard(0, 0);
+	
+	if (file > 0 && fread(header, sizeof(int), 3, file)) {
 		b = CreateBoard(header[0], header[1]);
-		//printf("int1 %d int2 %d int3 %d\n", header[0], header[1], header[2]);
 		for (int i = 0; i < header[2]; i++) {
 			Resistor r;
 			fread(&r, sizeof(Resistor), 1, file);
@@ -37,6 +38,7 @@ Board LoadBoardFromFile(char *filename, int *success) {
 		}
 		*success = 1;
 	} else *success = 0;
+
 	fclose(file);
 	return b;
 }
