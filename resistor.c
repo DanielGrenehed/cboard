@@ -14,7 +14,11 @@ void ResistorListAddResistor(ResistorList *list, Resistor r) {
 }
 
 int ResistorContainsPoint(Resistor *r, int row, int col) {
-	if (r->row == row && RangeContains(&r->position, col)) return 1;
+	if (r->row == row) {
+		if (r->position.start == col) return 2;
+		if (r->position.end == col) return 3;
+		if (RangeContains(&r->position, col)) return 1;
+	}
 	return 0;
 }
 
@@ -54,11 +58,8 @@ int ResistorGetOtherEndpoint(Resistor *aResistor, int col) {
 
 int ResistorListContainsPoint(ResistorList *list, int row, int col) {
 	for (ResistorNode *it = list->start; it != NULL; it=it->next) {
-		if (it->resistor.row == row) {
-			if (it->resistor.position.start == col) return 2;
-			if (it->resistor.position.end == col) return 3;
-			if (RangeContains(&it->resistor.position, col)) return 1;
-		}
+		int ans = ResistorContainsPoint(&it->resistor, row, col);
+		if (ans > 0) return ans;
 	}
 	return 0;
 }
