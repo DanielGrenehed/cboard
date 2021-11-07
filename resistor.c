@@ -64,13 +64,17 @@ int ResistorListContainsPoint(ResistorList *list, int row, int col) {
 	return 0;
 }
 
+int ResistorsOverlaps(Resistor *r1, Resistor *r2) {
+	if (r1->row == r2->row) {
+		if (RangeIntersects(&r1->position, &r2->position)) return 1;
+	}
+	return 0;
+}
 
 int ResistorListOverlapsResistor(ResistorList *list, Resistor *aResistor) {
 	for (ResistorNode *it = list->start; it != NULL; it = it->next) {
-		if (it->resistor.row == aResistor->row) {
-			if (RangeIntersects(&it->resistor.position, &aResistor->position)) return 1;
-		}
-	} 	
+		if (ResistorsOverlaps(aResistor, &it->resistor)) return 1;	
+	}
 	return 0;
 } 
 

@@ -75,22 +75,24 @@ void SaveBoard(Board *board) {
 		printf("%sFailed to write to %s %s\n", C_RED, filename, C_DEF);
 	}
 }
-
-void MenuShow(Board *board) {
-	int choice = -1;
-	char *Highlighter = C_BLU;
-	while (choice != 0) {
-		//printResistorList(&board->resistors);
-		printf("\n");
-		printBoard(board);
-			
-		printf("\n");
-		printf("%s1:%s Add resistor to breadboard\n", Highlighter, C_DEF);
+const char *Highlighter = C_BLU;
+void printMenu() {
+	printf("%s1:%s Add resistor to breadboard\n", Highlighter, C_DEF);
 		printf("%s2:%s Remove resistor from breadboard\n", Highlighter, C_DEF);
 		printf("%s3:%s Test connection between two points\n", Highlighter, C_DEF);
 		printf("%s4:%s Save board to file\n", Highlighter, C_DEF);
 		printf("%s0:%s Quit\n", Highlighter, C_DEF);
 		printf("\nEnter menu choice> %s", C_CYN);
+}
+
+void MenuShow(Board *board) {
+	int choice = -1;
+	while (choice != 0) {
+		//printResistorList(&board->resistors);
+		printf("\n");
+		printBoard(board);
+		printf("\n");
+		printMenu();
 		scanf("%d", &choice);
 		ClearBuffer();
 		printf(C_DEF);

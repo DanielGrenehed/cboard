@@ -16,10 +16,13 @@ typedef struct ResistorList {
 	ResistorNode *start;
 } ResistorList;
 
+/* Allocates space for and adds resistor to list */
 void ResistorListAddResistor(ResistorList *list, Resistor r);
 
+/* Removes(deallocates) first resistor covering point */
 void ResistorListRemoveResistor(ResistorList *list, int row, int col);
 
+/* Deallocates all elements in list */
 void ResistorListClear(ResistorList *list);
 
 /* Returns the column the other leg of the resistor is connected to, -1 if col not conncetd to resistor */
@@ -32,8 +35,10 @@ int ResistorListContainsPoint(ResistorList *list, int row, int col);
 /* Returns 0 if no resistor intersects aResistor and 1 if one or more does */
 int ResistorListOverlapsResistor(ResistorList *list, Resistor *aResistor); 
 
+/* Calculates the size of the list */
 int ResistorListSize(ResistorList *list);
 
+/* Resistor factory */
 Resistor CreateResistor(int row, int col1, int col2);
 
 #endif /* ifndef RESISTOR_H */
