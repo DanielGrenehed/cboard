@@ -1,3 +1,7 @@
+# About
+A breadboard "simulation" made by Daniel Grenehed 2021
+
+Latest code can be found on [GitHub](https://github.com/DanielGrenehed/cboard)
 
 ## Compilation
 To compile code run:
