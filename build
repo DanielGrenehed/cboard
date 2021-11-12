@@ -1,0 +1,2 @@
+#! /bin/bash
+gcc main.c resistor.c save.c board.c range.c menu.c -DCOLORS -Wall -o cboard
